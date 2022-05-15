@@ -20,6 +20,7 @@
   "dependencies": {
     "@hapi/hapi": "^20.2.2",
     "@hapi/vision": "^6.1.0",
-    "handlebars": "^4.7.7"
+    "handlebars": "^4.7.7",
+    "mongoose": "^6.3.3"
   }
 }
