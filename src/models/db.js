@@ -4,7 +4,7 @@ import { userMongoStore } from "./user-mongo-store.js";
 export const db = {
   userStore: null,
 
-  init(storeType) {
+  init() {
     this.userStore = userMongoStore;
     connectMongo();
   },
