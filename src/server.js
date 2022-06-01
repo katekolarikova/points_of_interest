@@ -1,3 +1,4 @@
+import dotenv from "dotenv";
 import Hapi from "@hapi/hapi";
 import Cookie from "@hapi/cookie";
 import Vision from "@hapi/vision";
@@ -10,6 +11,12 @@ import { accountController } from "./controllers/accounts-controller.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+const result = dotenv.config();
+if (result.error) {
+  console.log(result.error.message);
+  process.exit(1);
+}
 
 async function init() {
   const server = Hapi.server({
@@ -32,8 +39,8 @@ async function init() {
   });
   server.auth.strategy("session", "cookie", {
     cookie: {
-      name: "playtime",
-      password: "123456",
+      name: process.env.cookie_name,
+      password: process.env.cookie_password,
       isSecure: false,
     },
     redirectTo: "/",

@@ -4,7 +4,7 @@ export const accountController = {
   index: {
     auth: false,
     handler: function (request, h) {
-      return h.view("main", { title: "Welcome to Playlist" });
+      return h.view("main");
     },
   },
   loginView: {
@@ -23,7 +23,8 @@ export const accountController = {
   login: {
     auth: false,
     handler: async function (request, h) {
-      const { email, password } = request.payload;
+      const { email } = request.payload;
+      const { password } = request.payload;
       const user = await db.userStore.getUserByEmail(email);
       if (!user || user.password !== password) {
         return h.redirect("/");
@@ -35,6 +36,7 @@ export const accountController = {
   signup: {
     auth: false,
     handler: async function (request, h) {
+      console.log(request);
       const user = request.payload;
       await db.userStore.addUser(user);
       return h.redirect("/");
@@ -47,5 +49,12 @@ export const accountController = {
       return { valid: false };
     }
     return { valid: true, credentials: user };
+  },
+
+  logout: {
+    handler: function (request, h) {
+      request.cookieAuth.clear();
+      return h.redirect("/");
+    },
   },
 };
