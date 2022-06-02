@@ -4,10 +4,12 @@ export const dashboardController = {
   index: {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
-      const poisDb = await db.poiStore.getUserPois(loggedInUser._id);
+      const userspoisDb = await db.poiStore.getUserPois(loggedInUser._id);
+      const poisDb = await db.poiStore.getAllPois();
       const viewData = {
         title: "Poi Dashboard",
-        poi: poisDb,
+        user_poi: userspoisDb,
+        all_poi: poisDb,
       };
       return h.view("dashboard", viewData);
     },
