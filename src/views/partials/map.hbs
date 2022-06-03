@@ -5,29 +5,50 @@
 </head>
 
 <body>
-<div id = "map" style = "width: 900px; height: 580px; margin: auto"></div>
-<script>
-  // Creating map options
-  var mapOptions = {
-    center: [49.820923, 18.262524],
-    zoom: 12
-  }
+    <h1 class="title" style="color:darkgreen;font-size:45px;text-align:center;">
+      Poi's Map</h1>
+    <div class="field" style="text-align: center">
+      <label class="label"> Which poi's cathegory you would like to display? </label>
+      <form action="/dashboard/filterpoi" method="POST">
+        <select name="category_display" id="category_display" style="background-color: white; width:200px; height:40px; border-color:#E0DCDB;
+                     border-radius:4px; border-width:1px; box-shadow: #E0DCDB;
+                    ">
+          <option value="All">All</option>
+          <option value="Nature">Nature</option>
+          <option value="History">History</option>
+          <option value="Animals">Animals</option>
+          <option value="Culture">Culture</option>
+          <option value="Food">Food</option>
+          <option value="Club">Club</option>
+          <option value="Sport">Sport</option>
+        </select>
+        <button class="button is-link">Submit</button>
+      </div>
+  </form>
 
+  <div id = "map" style = "width: 900px; height: 580px; margin: auto"></div>
+    <script>
+    var data = document.getElementById('category_display').value;
+    console.log(data)
+    // Creating map options
+    var mapOptions = {
+      center: [49.820923, 18.262524],
+      zoom: 12
+    }
+    // Creating a map object
+    var map = new L.map('map', mapOptions);
 
-  // Creating a map object
-  var map = new L.map('map', mapOptions);
+    // Creating a Layer object
+    var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
 
-  // Creating a Layer object
-  var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+    // Adding layer to the map
+    map.addLayer(layer);
 
-  // Adding layer to the map
-  map.addLayer(layer);
-
-    {{#each all_poi}}
-    // Creating a marker
-      var marker = L.marker([{{latitude}},{{longitude}}]);
-    // Adding marker to the map
-      marker.addTo(map);
-    {{/each}}
-</script>
-</body>
+      {{#each all_poi}}
+      // Creating a marker
+        var marker = L.marker([{{latitude}},{{longitude}}]);
+      // Adding marker to the map
+        marker.addTo(map);
+      {{/each}}
+  </script>
+  </body>

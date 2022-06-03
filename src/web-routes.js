@@ -10,4 +10,5 @@ export const webRoutes = [
   { method: "POST", path: "/register", config: accountController.signup },
   { method: "GET", path: "/dashboard", config: dashboardController.index },
   { method: "POST", path: "/dashboard/addpoi", config: dashboardController.newPoi },
+  { method: "POST", path: "/dashboard/filterpoi", config: dashboardController.filterPoi },
 ];
