@@ -25,4 +25,20 @@ export const poiMongoStore = {
     const pois = await Poi.find({ userid: id }).lean();
     return pois;
   },
+
+  async deletePoi(id) {
+    try {
+      await Poi.deleteOne({ _id: id });
+    } catch (error) {
+      console.log("something went wrong, poi wasnt deleted");
+    }
+  },
+
+  async updatePoi(id, poi) {
+    try {
+      await Poi.updateOne({ _id: id }, poi, { upsert: true });
+    } catch (error) {
+      console.log("something went wrong, poi wasnt updated");
+    }
+  },
 };

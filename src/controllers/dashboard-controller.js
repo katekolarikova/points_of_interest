@@ -15,22 +15,6 @@ export const dashboardController = {
     },
   },
 
-  newPoi: {
-    handler: async function (request, h) {
-      const loggedInUser = request.auth.credentials;
-      const newPoi = {
-        userid: loggedInUser._id,
-        name: request.payload.name,
-        category: request.payload.category,
-        description: request.payload.description,
-        latitude: request.payload.latitude,
-        longitude: request.payload.longitude,
-      };
-      await db.poiStore.addPoi(newPoi);
-      return h.redirect("/dashboard");
-    },
-  },
-
   filterPoi: {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;

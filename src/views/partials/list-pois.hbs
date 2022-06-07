@@ -5,5 +5,14 @@
     <h2 class="title">
       {{name}}
     </h2>
+    <a href="/dashboard/deletePoi/{{_id}}" class="button">
+      <i class="fas fa-trash"></i>
+    </a>
+    <a href="/modifypoi/{{_id}}" class="button">
+      <span class="icon is-small">
+       <i class="fas fa-pen"></i>
+      </span>
+    </a>
   </div>
+
 {{/each}}

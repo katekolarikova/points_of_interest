@@ -1,0 +1,46 @@
+<h1 class="title" style="color:darkgreen;font-size:30px;text-align:center;">Modify Poi</h1>
+<form action="/modifypoi/submit/{id}" method="POST">
+  <div class="field">
+    <label class="label"> Name of Poi</label>
+    <input class="input" type="text" name="name" value="{{name}}">
+  </div>
+
+  <div class="field">
+    <label class="label"> Category</label>
+    <select name="category" id="category"
+            style="background-color: white; width:200px; height:40px; border-color:#E0DCDB;
+                    border-radius:4px; border-width:1px; box-shadow: #E0DCDB">
+      <option value={{category}}>{{category}}</option>
+      <option value="Nature">Nature</option>
+      <option value="History">History</option>
+      <option value="Animals">Animals</option>
+      <option value="Culture">Culture</option>
+      <option value="Food">Food</option>
+      <option value="Club">Club</option>
+      <option value="Sport">Sport</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label class="label"> Description</label>
+    <input class="input" type="text" placeholder="Enter poi description" name="description"
+      value="{{description}}">
+  </div>
+
+  <div class="field">
+    <label class="label"> Latitude</label>
+    <input class="input" type="text" placeholder="Enter poi latitude" name="latitude"
+    value={{latitude}}>
+  </div>
+
+  <div class="field">
+    <label class="label"> Longitude</label>
+    <input class="input" type="text" placeholder="Enter poi longitude" name="longitude"
+    value={{longitude}}>
+  </div>
+
+  <div class="field is-grouped">
+    <button class="button is-link">Update</button>
+  </div>
+    <input class="input" type="hidden" name="poiId" value="{{poiId}}">
+</form>
