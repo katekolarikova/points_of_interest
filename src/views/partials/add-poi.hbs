@@ -1,5 +1,5 @@
 <h1 class="title" style="color:darkgreen;font-size:30px;text-align:center;">Add New Poi</h1>
-<form action="/dashboard/addpoi" method="POST">
+<form action="/dashboard/addpoi" method="POST" enctype="multipart/form-data">
   <div class="field">
     <label class="label"> Name of Poi</label>
     <input class="input" type="text" placeholder="Enter poi name" name="name">
@@ -35,8 +35,34 @@
     <label class="label"> Longitude</label>
     <input class="input" type="text" placeholder="Enter poi longitude" name="longitude">
   </div>
+  <label class="label"> Picture</label>
+ <div id="file-select" class="file has-name is-fullwidth">
 
+  <label class="file-label">
+    <input class="file-input" name="imagefile" type="file" accept="image/png, image/jpeg image/jpg" >
+    <span class="file-cta">
+            <span class="file-icon">
+              <i class="fas fa-upload"></i>
+            </span>
+            <span class="file-label">
+              Choose a file…
+            </span>
+           </span>
+    <span class="file-name"></span>
+  </label>
+  </div><br>
   <div class="field is-grouped">
     <button class="button is-link">Add Poi</button>
   </div>
 </form>
+
+
+<script>
+  const fileInput = document.querySelector(".file-input");
+  fileInput.onchange = () => {
+    if (fileInput.files.length > 0) {
+      const fileName = document.querySelector(".file-name");
+      fileName.textContent = fileInput.files[0].name;
+    }
+  };
+</script>

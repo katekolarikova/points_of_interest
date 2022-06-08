@@ -23,10 +23,11 @@
           <option value="Sport">Sport</option>
         </select>
         <button class="button is-link">Submit</button>
-      </div>
-  </form>
+      </form>
+    </div>
 
-  <div id = "map" style = "width: 900px; height: 580px; margin: auto"></div>
+
+    <div id = "map" style = "width: 900px; height: 580px; margin: auto"></div>
     <script>
     var data = document.getElementById('category_display').value;
     console.log(data)
@@ -44,11 +45,19 @@
     // Adding layer to the map
     map.addLayer(layer);
 
+
       {{#each all_poi}}
+      var htmlstr = '<h1 style ="font-size:16px;" ><b>{{name}}</b></h1><br><b>Category:</b><br>{{category}}<br><b>Description:</b><br>{{description}}<div class="card"> <div class="card-image"> <figure class="image is-256x256"> <img src={{img}}> </figure> </div>';
+
+      //iframe = folium.IFrame(htmlstr,width=200,height=200,);
+
+      //fpop = folium.Popup(iframe);
+
       // Creating a marker
         var marker = L.marker([{{latitude}},{{longitude}}]);
       // Adding marker to the map
         marker.addTo(map);
+        marker.bindPopup(htmlstr)
       {{/each}}
   </script>
   </body>

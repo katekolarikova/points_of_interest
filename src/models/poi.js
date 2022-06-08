@@ -8,6 +8,7 @@ const poiSchema = new Schema({
   description: String,
   latitude: Mongoose.Types.Decimal128,
   longitude: Mongoose.Types.Decimal128,
+  img: String,
   userid: {
     type: Schema.Types.ObjectId,
     ref: "User",
