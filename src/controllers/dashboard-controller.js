@@ -20,6 +20,7 @@ export const dashboardController = {
       const loggedInUser = request.auth.credentials;
       const category = request.payload.category_display;
       const poisDb = await db.poiStore.getAllPois();
+      const poi = await db.poiStore.getPoiById("62a08b608b076aded1f9479f");
       const userspoisDb = await db.poiStore.getUserPois(loggedInUser._id);
       let poisDbFiltred = [];
       if (category === "All") poisDbFiltred = poisDb;

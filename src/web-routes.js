@@ -14,5 +14,7 @@ export const webRoutes = [
   { method: "POST", path: "/dashboard/filterpoi", config: dashboardController.filterPoi },
   { method: "GET", path: "/dashboard/deletePoi/{id}", config: poiController.deletePoi },
   { method: "GET", path: "/modifypoi/{id}", config: poiController.index },
-  { method: "POST", path: "/modifypoi/submit/{id}", config: poiController.updatePoi },
+  { method: "POST", path: "/modifydesccription/submit/{id}", config: poiController.updatePoiDescription },
+  { method: "POST", path: "/modifylocation/submit/{id}", config: poiController.updatePoiLocation },
+  { method: "POST", path: "/modifyimage/submit/{id}", config: poiController.updatePoiImage },
 ];

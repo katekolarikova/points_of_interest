@@ -1,5 +1,5 @@
-<h1 class="title" style="color:darkgreen;font-size:30px;text-align:center;">Modify Poi</h1>
-<form action="/modifypoi/submit/{id}" method="POST">
+<h1 class="title" style="color:darkgreen;font-size:30px;">Modify Poi Description</h1>
+<form action="/modifydesccription/submit/{id}" method="POST">
   <div class="field">
     <label class="label"> Name of Poi</label>
     <input class="input" type="text" name="name" value="{{name}}">
@@ -27,20 +27,8 @@
       value="{{description}}">
   </div>
 
-  <div class="field">
-    <label class="label"> Latitude</label>
-    <input class="input" type="text" placeholder="Enter poi latitude" name="latitude"
-    value={{latitude}}>
-  </div>
-
-  <div class="field">
-    <label class="label"> Longitude</label>
-    <input class="input" type="text" placeholder="Enter poi longitude" name="longitude"
-    value={{longitude}}>
-  </div>
-
   <div class="field is-grouped">
-    <button class="button is-link">Update</button>
+    <button class="button is-link">Update Description</button>
   </div>
     <input class="input" type="hidden" name="poiId" value="{{poiId}}">
 </form>

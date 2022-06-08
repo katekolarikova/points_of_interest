@@ -1,5 +1,5 @@
-  <!--<div class="card-content">
-    <form action="/poi/uploadimage" method="POST" enctype="multipart/form-data">
+<h1 class="title" style="color:darkgreen;font-size:30px;t">Modify Poi Image</h1>
+<form action="/modifyimage/submit/{id}" method="POST" enctype="multipart/form-data">
       <div id="file-select" class="file has-name is-fullwidth">
         <label class="file-label">
           <input class="file-input" name="imagefile" type="file" accept="image/png, image/jpeg">
@@ -13,11 +13,13 @@
            </span>
           <span class="file-name"></span>
         </label>
-        <button type="submit" class="button is-info">Upload</button>
+
+      </div>
+      <div>
+        <input class="input" type="hidden" name="poiId" value="{{poiId}}"><br>
+        <button type="submit" class="button is-link">Update Image</button>
       </div>
     </form>
-  </div>
-</div>
 
   <script>
     const fileInput = document.querySelector(".file-input");
@@ -27,4 +29,4 @@
         fileName.textContent = fileInput.files[0].name;
       }
     };
-  </script> -->
+  </script>

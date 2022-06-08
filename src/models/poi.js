@@ -6,9 +6,9 @@ const poiSchema = new Schema({
   name: String,
   category: String,
   description: String,
+  img: String,
   latitude: Mongoose.Types.Decimal128,
   longitude: Mongoose.Types.Decimal128,
-  img: String,
   userid: {
     type: Schema.Types.ObjectId,
     ref: "User",

@@ -1,0 +1,20 @@
+<h1 class="title" style="color:darkgreen;font-size:30px;">Modify Poi Location</h1>
+<form action="/modifylocation/submit/{id}" method="POST">
+
+  <div class="field">
+    <label class="label"> Latitude</label>
+    <input class="input" type="text" placeholder="Enter poi latitude" name="latitude"
+           value={{latitude}}>
+  </div>
+
+  <div class="field">
+    <label class="label"> Longitude</label>
+    <input class="input" type="text" placeholder="Enter poi longitude" name="longitude"
+           value={{longitude}}>
+  </div>
+
+  <div class="field is-grouped">
+    <button class="button is-link">Update Location</button>
+  </div>
+  <input class="input" type="hidden" name="poiId" value="{{poiId}}">
+</form>

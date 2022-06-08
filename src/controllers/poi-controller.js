@@ -1,4 +1,3 @@
-import { writeFileSync } from "fs";
 import { db } from "../models/db.js";
 import { imageStore } from "../models/image-store.js";
 
@@ -14,7 +13,6 @@ export const poiController = {
         longitude: poi.longitude,
         poiId: request.params.id,
       };
-      console.log(viewData);
       return h.view("poi_detail", viewData);
     },
   },
@@ -31,7 +29,6 @@ export const poiController = {
       } catch (err) {
         console.log(err);
       }
-      console.log("here");
       const newPoi = {
         userid: loggedInUser._id,
         name: request.payload.name,
@@ -52,14 +49,26 @@ export const poiController = {
     },
   },
 
-  updatePoi: {
+  updatePoiDescription: {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
       const newPoi = {
-        userid: loggedInUser._id,
+        // userid: loggedInUser._id,
         name: request.payload.name,
         category: request.payload.category,
         description: request.payload.description,
+      };
+      await db.poiStore.updatePoi(request.payload.poiId, newPoi);
+      return h.redirect("/dashboard");
+    },
+  },
+
+  updatePoiLocation: {
+    handler: async function (request, h) {
+      const loggedInUser = request.auth.credentials;
+      var poi = db.poiStore.getPoiById(request.payload.poiId);
+      const newPoi = {
+        // userid: loggedInUser._id,
         latitude: request.payload.latitude,
         longitude: request.payload.longitude,
       };
@@ -73,6 +82,39 @@ export const poiController = {
       const poi = await db.poiStore.getPoiById(request.params.id);
       await db.poiStore.deletePoi(poi._id);
       return h.redirect("/dashboard");
+    },
+  },
+
+  updatePoiImage: {
+    handler: async function (request, h) {
+      try {
+        const file = request.payload.imagefile;
+        const poi = await db.poiStore.getPoiById(request.payload.poiId);
+        if (Object.keys(file).length > 0) {
+          const url = await imageStore.uploadImage(request.payload.imagefile);
+
+          if (poi.img.length > 0) {
+            const parseUrl = poi.img.split("/");
+            const filename = parseUrl[parseUrl.length - 1];
+            const parseFilename = filename.split(".");
+            await imageStore.deleteImage(parseFilename[0]);
+          }
+          const newPoi = {
+            img: url,
+          };
+          await db.poiStore.updatePoi(request.payload.poiId, newPoi);
+        }
+        return h.redirect("/dashboard");
+      } catch (err) {
+        console.log(err);
+        return h.redirect("/dashboard");
+      }
+    },
+    payload: {
+      multipart: true,
+      output: "data",
+      maxBytes: 209715200,
+      parse: true,
     },
   },
 };

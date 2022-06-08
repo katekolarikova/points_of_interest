@@ -25,6 +25,7 @@
     "cloudinary": "^1.30.0",
     "dotenv": "^16.0.1",
     "handlebars": "^4.7.7",
+    "joi": "^17.6.0",
     "mongoose": "^6.3.3",
     "mongoose-double": "^0.0.1"
   }
