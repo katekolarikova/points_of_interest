@@ -8,6 +8,7 @@ import { fileURLToPath } from "url";
 import { webRoutes } from "./web-routes.js";
 import { db } from "./models/db.js";
 import { accountController } from "./controllers/accounts-controller.js";
+import Joi from "joi";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -25,6 +26,7 @@ async function init() {
   });
   await server.register(Vision);
   await server.register(Cookie);
+  server.validator(Joi);
 
   server.views({
     engines: {
