@@ -41,4 +41,8 @@ export const poiMongoStore = {
       console.log("something went wrong, poi wasnt updated");
     }
   },
+
+  async deleteAllPoi(id) {
+    await Poi.deleteMany({});
+  },
 };

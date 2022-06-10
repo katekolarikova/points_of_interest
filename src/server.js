@@ -5,10 +5,10 @@ import Vision from "@hapi/vision";
 import Handlebars from "handlebars";
 import path from "path";
 import { fileURLToPath } from "url";
+import Joi from "joi";
 import { webRoutes } from "./web-routes.js";
 import { db } from "./models/db.js";
 import { accountController } from "./controllers/accounts-controller.js";
-import Joi from "joi";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
