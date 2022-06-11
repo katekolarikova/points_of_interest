@@ -17,16 +17,32 @@ suite("User API tests", () => {
   });
 
   // get user by id
-  test("get  user by id - success", async () => {
+  test("get  user by id, successful", async () => {
     const testUser = await db.userStore.addUser(testUserJohn);
     const returnedUser = await db.userStore.getUserById(testUser._id);
     assert.deepEqual(testUser, returnedUser);
   });
-  // get user by email
-  test("get a user by email - success", async () => {
+
+  // get user by id, unssuccesful
+  test("get  user by id, unsuccesfull", async () => {
+    let returnedUser = await db.userStore.getUserById("");
+    assert.isNull(returnedUser);
+    returnedUser = await db.userStore.getUserById();
+    assert.isNull(returnedUser);
+  });
+  // get user by email, successful
+  test("get a user by email,successful", async () => {
     const testUser = await db.userStore.addUser(testUserJohn);
     const returnedUser = await db.userStore.getUserByEmail(testUser.email);
     assert.deepEqual(testUser, returnedUser);
+  });
+
+  // get user by email,unsuccessful
+  test("get a user by email, unsuccessful", async () => {
+    let returnedUser = await db.userStore.getUserByEmail("");
+    assert.isNull(returnedUser);
+    returnedUser = await db.userStore.getUserByEmail();
+    assert.isNull(returnedUser);
   });
   // deleteAll
   test("delete all users", async () => {
@@ -43,9 +59,21 @@ suite("User API tests", () => {
   // delete user byId - one user
   test("delete user by id one", async () => {
     const testUser = await db.userStore.addUser(testUserJohn);
+    let returnedUser = await db.userStore.getAllUsers();
+    assert.equal(returnedUser.length, 1);
     await db.userStore.deleteUserById(testUser._id);
+    returnedUser = await db.userStore.getAllUsers();
+    assert.equal(returnedUser.length, 0);
     const deleteUser = await db.userStore.getUserById(testUser._id);
     assert.isNull(deleteUser);
+  });
+
+  // delete user, unsuccessful
+  test("delete user by id, unsuccessfull", async () => {
+    const testUser = await db.userStore.addUser(testUserJohn);
+    await db.userStore.deleteUserById("wrong");
+    const returnedUser = await db.userStore.getAllUsers();
+    assert.equal(returnedUser.length, 1);
   });
 
   // delete userById - from many

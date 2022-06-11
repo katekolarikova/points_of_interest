@@ -66,7 +66,7 @@ export const poiController = {
   updatePoiLocation: {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
-      var poi = db.poiStore.getPoiById(request.payload.poiId);
+      const poi = db.poiStore.getPoiById(request.payload.poiId);
       const newPoi = {
         // userid: loggedInUser._id,
         latitude: request.payload.latitude,

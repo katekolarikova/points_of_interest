@@ -11,6 +11,8 @@ export const poiMongoStore = {
       const poi = await Poi.findOne({ _id: id }).lean();
       return poi;
     }
+    console.log("something went wrong, poi wasnt found");
+
     return null;
   },
 

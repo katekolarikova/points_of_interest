@@ -12,35 +12,64 @@ suite("Poi Unit Test", async () => {
 
   // get all poi
   test("get all pois ", async () => {
+    // eslint-disable-next-line no-plusplus
     for (let i = 0; i < testPois.length; ++i) {
       // eslint-disable-next-line no-await-in-loop
       await db.poiStore.addPoi(testPois[i]);
     }
-    const returnedPoi = await db.poiStore.getAllPois();
-    assert.equal(returnedPoi.length, 3);
+    const returnedPois = await db.poiStore.getAllPois();
+    assert.equal(returnedPois.length, 3);
   });
   // addPoi
-  test("get poi by id ", async () => {
+  test("add poi", async () => {
     const testPoi = await db.poiStore.addPoi(testPoiCinema);
     assertSubset(testPoi, testPoiCinema);
   });
-  // get poi by id
-  test("get poi by id ", async () => {
+
+  // updatePoi
+  test("update poi", async () => {
     const testPoi = await db.poiStore.addPoi(testPoiCinema);
-    const newPoi = await db.poiStore.getPoiById(testPoi._);
+    await db.poiStore.updatePoi(testPoi._id, { name: "changed" });
+    testPoi.name = "changed";
+    const returnedPoi = await db.poiStore.getPoiById(testPoi._id);
+    assertSubset(testPoi, returnedPoi);
+  });
+
+  // get poi by id, successful
+  test("get poi by id, successfull ", async () => {
+    const testPoi = await db.poiStore.addPoi(testPoiCinema);
+    const newPoi = await db.poiStore.getPoiById(testPoi._id);
     assertSubset(testPoi, newPoi);
   });
 
-  // getUsersPoi
+  // get poi by id, unsuccessful
+  test("get poi by id, unseccessful ", async () => {
+    const newPoi = await db.poiStore.getPoiById("");
+    assert.isNull(newPoi);
+  });
 
-  // deletePoi
-  test("delete poi", async () => {
+  // deletePoi, successful
+  test("delete poi, successful", async () => {
     const testPoi = await db.poiStore.addPoi(testPoiCinema);
+    let returnedPois = await db.poiStore.getAllPois();
+    assert.equal(returnedPois.length, 1);
     await db.poiStore.deletePoi(testPoi._id);
+    returnedPois = await db.poiStore.getAllPois();
+    assert.equal(returnedPois.length, 0);
     const deletedPoi = await db.poiStore.getPoiById(testPoi._id);
     assert.isNull(deletedPoi);
   });
-  // updatePoi
+
+  // deletePoi wrong parameters
+  test("delete poi, unsuccessful", async () => {
+    for (let i = 0; i < testPois.length; i += 1) {
+      // eslint-disable-next-line no-await-in-loop
+      await db.poiStore.addPoi(testPois[i]);
+    }
+    await db.poiStore.deletePoi("xx");
+    const returnedPois = await db.poiStore.getAllPois();
+    assert.equal(testPois.length, returnedPois.length);
+  });
 
   // deleteAll
   test("delete all pois", async () => {
