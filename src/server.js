@@ -6,6 +6,8 @@ import Handlebars from "handlebars";
 import path from "path";
 import { fileURLToPath } from "url";
 import Joi from "joi";
+import HapiSwagger from "hapi-swagger";
+import Inert from "@hapi/inert";
 import { webRoutes } from "./web-routes.js";
 import { db } from "./models/db.js";
 import { accountController } from "./controllers/accounts-controller.js";
@@ -20,6 +22,13 @@ if (result.error) {
   process.exit(1);
 }
 
+const swaggerOptions = {
+  info: {
+    title: "Placemark API",
+    version: "0.1",
+  },
+};
+
 async function init() {
   const server = Hapi.server({
     port: 2800,
@@ -27,6 +36,14 @@ async function init() {
   });
   await server.register(Vision);
   await server.register(Cookie);
+  await server.register([
+    Inert,
+    Vision,
+    {
+      plugin: HapiSwagger,
+      options: swaggerOptions,
+    },
+  ]);
   server.validator(Joi);
 
   server.views({
@@ -50,7 +67,7 @@ async function init() {
     validateFunc: accountController.validate,
   });
   server.auth.default("session");
-  db.init("mongo"); // for testing the API change to "testMongo"
+  db.init("mongo"); //
   server.route(webRoutes);
   server.route(apiRoutes);
   await server.start();

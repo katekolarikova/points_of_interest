@@ -37,11 +37,13 @@ suite("User API tests", () => {
     const returnedUsers = await poiService.getAllUsers();
     assert.equal(returnedUsers.length, 3);
   });
+
   // delete one
   test("delete a user", async () => {
+    let allUser = await poiService.getAllUsers();
     const returnedUser = await poiService.getUser(testUsers[0]._id);
     await poiService.deleteOneUser(returnedUser._id);
-    const allUser = await poiService.getAllUsers();
+    allUser = await poiService.getAllUsers();
     assert.equal(allUser.length, testUsers.length - 1);
   });
 

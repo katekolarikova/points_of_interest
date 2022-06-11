@@ -4,7 +4,7 @@ import { testUserJohn, testUsers } from "../fixtures.js";
 
 import { db } from "../../src/models/db.js";
 
-suite("User API tests", () => {
+suite("User model tests", () => {
   setup(async () => {
     db.init("testMongo");
     await db.userStore.deleteAll();

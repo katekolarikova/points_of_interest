@@ -1,5 +1,7 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
+import { IdSpec, UserArray, UserSpec } from "../models/joi-schemas.js";
+import { validationError } from "./logger.js";
 
 export const poiApi = {
   find: {
@@ -12,6 +14,10 @@ export const poiApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Get all Pois",
+    notes: "Returns details of all Pois",
+    // response: { schema: UserArray, failAction: validationError },
   },
 
   findOne: {
@@ -27,6 +33,11 @@ export const poiApi = {
         return Boom.serverUnavailable("No Poi with this id");
       }
     },
+    tags: ["api"],
+    description: "Get a specific poi",
+    notes: "Return details of specific poi",
+    // response: { schema: UserSpec, failAction: validationError },
+    // validate: { params: { id: IdSpec }, failAction: validationError },
   },
 
   create: {
@@ -42,6 +53,11 @@ export const poiApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Create new Poi",
+    notes: "Add new poi into database",
+    // validate: { payload: UserSpec, failAction: validationError },
+    // response: { schema: UserSpec, failAction: validationError },
   },
 
   deleteAll: {
@@ -54,6 +70,9 @@ export const poiApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Delete All Pois",
+    notes: "Deletes pois from db",
   },
 
   deleteOne: {
@@ -70,5 +89,9 @@ export const poiApi = {
         return Boom.serverUnavailable("No Poi with this id");
       }
     },
+    tags: ["api"],
+    description: "Delete Poi",
+    notes: "Deletes one specific poi from db",
+    validate: { params: { id: IdSpec }, failAction: validationError },
   },
 };
