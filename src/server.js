@@ -50,7 +50,7 @@ async function init() {
     validateFunc: accountController.validate,
   });
   server.auth.default("session");
-  db.init("mongo");
+  db.init("mongo"); // for testing the API change to "testMongo"
   server.route(webRoutes);
   server.route(apiRoutes);
   await server.start();

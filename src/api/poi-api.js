@@ -1,12 +1,12 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
 
-export const userApi = {
+export const poiApi = {
   find: {
     auth: false,
     handler: async function (request, h) {
       try {
-        const users = await db.userStore.getAllUsers();
+        const users = await db.poiStore.getAllPois();
         return users;
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
@@ -18,13 +18,13 @@ export const userApi = {
     auth: false,
     handler: async function (request, h) {
       try {
-        const user = await db.userStore.getUserById(request.params.id);
+        const user = await db.poiStore.getPoiById(request.params.id);
         if (!user) {
-          return Boom.notFound("No User with this id");
+          return Boom.notFound("No Poi with this id");
         }
         return user;
       } catch (err) {
-        return Boom.serverUnavailable("No User with this id");
+        return Boom.serverUnavailable("No Poi with this id");
       }
     },
   },
@@ -33,7 +33,7 @@ export const userApi = {
     auth: false,
     handler: async function (request, h) {
       try {
-        const user = await db.userStore.addUser(request.payload);
+        const user = await db.poiStore.addPoi(request.payload);
         if (user) {
           return h.response(user).code(201);
         }
@@ -48,7 +48,7 @@ export const userApi = {
     auth: false,
     handler: async function (request, h) {
       try {
-        await db.userStore.deleteAll();
+        await db.poiStore.deleteAllPoi();
         return h.response().code(204);
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
@@ -60,14 +60,14 @@ export const userApi = {
     auth: false,
     handler: async function (request, h) {
       try {
-        const user = await db.userStore.getUserById(request.params.id);
-        if (!user) {
-          return Boom.notFound("No User with this id");
+        const poi = await db.poiStore.getPoiById(request.params.id);
+        if (!poi) {
+          return Boom.notFound("No Poi with this id");
         }
-        await db.userStore.deleteUserById(request.params.id);
+        await db.poiStore.deletePoi(request.params.id);
         return h.response().code(204);
       } catch (err) {
-        return Boom.serverUnavailable("No User with this id");
+        return Boom.serverUnavailable("No Poi with this id");
       }
     },
   },

@@ -1,5 +1,7 @@
 import Mongoose from "mongoose";
 
+export const serviceUrl = "http://localhost:2800";
+
 export const testUserJohn = {
   name: "John Newman",
   nickname: "Johhy01",
