@@ -1,12 +1,12 @@
 import { assert } from "chai";
-import { assertSubset } from "./test-utils.js";
-import { testPoiCinema, testPois, testUsers } from "./fixtures.js";
+import { assertSubset } from "../test-utils.js";
+import { testPoiCinema, testPois, testUsers } from "../fixtures.js";
 
-import { db } from "../src/models/db.js";
+import { db } from "../../src/models/db.js";
 
 suite("Poi Unit Test", async () => {
   setup(async () => {
-    db.init("mongo");
+    db.init("testMongo");
     await db.poiStore.deleteAllPoi();
   });
 

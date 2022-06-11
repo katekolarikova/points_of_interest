@@ -1,12 +1,12 @@
 import { assert } from "chai";
-import { assertSubset } from "./test-utils.js";
-import { testUserJohn, testUsers } from "./fixtures.js";
+import { assertSubset } from "../test-utils.js";
+import { testUserJohn, testUsers } from "../fixtures.js";
 
-import { db } from "../src/models/db.js";
+import { db } from "../../src/models/db.js";
 
 suite("User API tests", () => {
   setup(async () => {
-    db.init("mongo");
+    db.init("testMongo");
     await db.userStore.deleteAll();
   });
 
