@@ -3,10 +3,10 @@ import Mongoose from "mongoose";
 export const serviceUrl = "http://localhost:2800";
 
 export const testUserJohn = {
-  name: "John Newman",
-  nickname: "Johhy01",
   email: "john@test.com",
   password: "pass123",
+  name: "John Newman",
+  nickname: "Johhy01",
 };
 
 export const testUsers = [

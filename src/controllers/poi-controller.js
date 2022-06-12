@@ -1,5 +1,6 @@
 import { db } from "../models/db.js";
 import { imageStore } from "../models/image-store.js";
+import { PoiSpec, DescriptionValidation, CoordinationValidation } from "../models/joi-schemas.js";
 
 export const poiController = {
   index: {
@@ -18,6 +19,13 @@ export const poiController = {
   },
 
   newPoi: {
+    validate: {
+      payload: PoiSpec,
+      options: { abortEarly: false },
+      failAction: function (request, h, error) {
+        return h.view("dashboard", { title: "Add Poi Error", errors: error.details }).takeover().code(400);
+      },
+    },
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
       let url = "";
@@ -50,6 +58,13 @@ export const poiController = {
   },
 
   updatePoiDescription: {
+    validate: {
+      payload: DescriptionValidation,
+      options: { abortEarly: false },
+      failAction: function (request, h, error) {
+        return h.view("dashboard", { title: "Update Poi Description Error", errors: error.details }).takeover().code(400);
+      },
+    },
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
       const newPoi = {
@@ -64,6 +79,13 @@ export const poiController = {
   },
 
   updatePoiLocation: {
+    validate: {
+      payload: CoordinationValidation,
+      options: { abortEarly: false },
+      failAction: function (request, h, error) {
+        return h.view("dashboard", { title: "Update Poi Coordinations Error", errors: error.details }).takeover().code(400);
+      },
+    },
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
       const poi = db.poiStore.getPoiById(request.payload.poiId);

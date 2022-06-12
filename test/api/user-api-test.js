@@ -4,12 +4,14 @@ import { assertSubset } from "../test-utils.js";
 import { testUserJohn, testUsers } from "../fixtures.js";
 import { userApi } from "../../src/api/users-api.js";
 
+const users = new Array(testUsers.length);
+
 suite("User API tests", () => {
   setup(async () => {
     await poiService.deleteAllUsers();
     for (let i = 0; i < testUsers.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
-      testUsers[0] = await poiService.addUser(testUsers[i]);
+      users[0] = await poiService.addUser(testUsers[i]);
     }
   });
   teardown(async () => {});
@@ -29,8 +31,8 @@ suite("User API tests", () => {
   });
 
   test("get a user - success", async () => {
-    const returnedUser = await poiService.getUser(testUsers[0]._id);
-    assert.deepEqual(testUsers[0], returnedUser);
+    const returnedUser = await poiService.getUser(users[0]._id);
+    assert.deepEqual(users[0], returnedUser);
   });
   // get all
   test("get all users", async () => {
@@ -41,7 +43,7 @@ suite("User API tests", () => {
   // delete one
   test("delete a user", async () => {
     let allUser = await poiService.getAllUsers();
-    const returnedUser = await poiService.getUser(testUsers[0]._id);
+    const returnedUser = await poiService.getUser(users[0]._id);
     await poiService.deleteOneUser(returnedUser._id);
     allUser = await poiService.getAllUsers();
     assert.equal(allUser.length, testUsers.length - 1);
