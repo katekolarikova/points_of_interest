@@ -1,14 +1,16 @@
 import { assert } from "chai";
 import { poiService } from "./poi-service.js";
 import { assertSubset } from "../test-utils.js";
-import { testPoiCinema, testPois } from "../fixtures.js";
+import { testPoiCinema, testPois, testUsers } from "../fixtures.js";
+
+const pois = new Array(testPois.length);
 
 suite("Poi API tests", () => {
   setup(async () => {
     await poiService.deleteAllPois();
     for (let i = 0; i < testPois.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
-      testPois[0] = await poiService.addPoi(testPois[i]);
+      pois[0] = await poiService.addPoi(testPois[i]);
     }
   });
   teardown(async () => {});
@@ -28,8 +30,8 @@ suite("Poi API tests", () => {
   });
 
   test("get a poi - success", async () => {
-    const returnedPoi = await poiService.getPoi(testPois[0]._id);
-    assert.deepEqual(testPois[0], returnedPoi);
+    const returnedPoi = await poiService.getPoi(pois[0]._id);
+    assert.deepEqual(pois[0], returnedPoi);
   });
   // get all
   test("get all pois", async () => {
@@ -38,7 +40,7 @@ suite("Poi API tests", () => {
   });
   // delete one
   test("delete a poi", async () => {
-    const returnedPoi = await poiService.getPoi(testPois[0]._id);
+    const returnedPoi = await poiService.getPoi(pois[0]._id);
     await poiService.deleteOnePoi(returnedPoi._id);
     const allPois = await poiService.getAllPois();
     assert.equal(allPois.length, testPois.length - 1);
