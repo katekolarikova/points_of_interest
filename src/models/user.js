@@ -1,4 +1,5 @@
 import Mongoose from "mongoose";
+
 const { Schema } = Mongoose;
 
 const userSchema = new Schema({
@@ -6,6 +7,7 @@ const userSchema = new Schema({
   nickname: String,
   email: String,
   password: String,
+  role: String,
 });
 
 export const User = Mongoose.model("User", userSchema);

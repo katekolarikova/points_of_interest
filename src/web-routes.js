@@ -1,6 +1,7 @@
 import { dashboardController } from "./controllers/dashboard-controller.js";
 import { accountController } from "./controllers/accounts-controller.js";
 import { poiController } from "./controllers/poi-controller.js";
+import { adminController } from "./controllers/admin-dashboard-controller.js";
 
 export const webRoutes = [
   { method: "GET", path: "/", config: accountController.index },
@@ -17,4 +18,5 @@ export const webRoutes = [
   { method: "POST", path: "/modifydesccription/submit/{id}", config: poiController.updatePoiDescription },
   { method: "POST", path: "/modifylocation/submit/{id}", config: poiController.updatePoiLocation },
   { method: "POST", path: "/modifyimage/submit/{id}", config: poiController.updatePoiImage },
+  { method: "GET", path: "/admin/dashboard", config: adminController.index },
 ];
