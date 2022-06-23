@@ -35,6 +35,10 @@ export const dashboardController = {
 
   filterPoi: {
     handler: async function (request, h) {
+      const weatherData = await getWeather();
+      const WeatherJsonData = JSON.parse(weatherData);
+      let description = WeatherJsonData["weather"][0]["description"];
+      let temperature = WeatherJsonData["main"]["temp"];
       const loggedInUser = request.auth.credentials;
       const category = request.payload.category_display;
       const poisDb = await db.poiStore.getAllPois();
@@ -54,6 +58,11 @@ export const dashboardController = {
         title: "Poi Dashboard",
         user_poi: userspoisDb,
         all_poi: poisDbFiltred,
+        weather_description: description,
+        temperature: temperature,
+        num_of_pois_user: userspoisDb.length,
+        num_of_poi_total: poisDb.length,
+        nickname: loggedInUser.nickname,
       };
       return h.view("dashboard", viewData);
     },
