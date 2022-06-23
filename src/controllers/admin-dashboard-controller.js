@@ -1,9 +1,6 @@
 import { db } from "../models/db.js";
-import { DescriptionValidation } from "../models/joi-schemas.js";
-import { userApi } from "../api/users-api.js";
 
 export function isAdmin(loggedInUser) {
-  console.log(loggedInUser.admin);
   if (loggedInUser.admin) {
     return true;
   }
@@ -35,7 +32,7 @@ export const adminController = {
         average: (poisDB.length / userDB.length).toFixed(2),
         admins: numAdmins,
       };
-      return h.view("admin-view", viewData);
+      return h.view("admin-dashboard", viewData);
     },
   },
   deleteUser: {
@@ -44,7 +41,6 @@ export const adminController = {
       if (!isAdmin(loggedInUser)) {
         return h.redirect("/dashboard");
       }
-      console.log("here");
       const user = await db.userStore.getUserById(request.params.id);
       await db.userStore.deleteUserById(user._id);
       return h.redirect("/admin/dashboard");

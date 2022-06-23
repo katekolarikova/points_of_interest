@@ -1,4 +1,4 @@
-{{> welcome-menu active="home"}}
+{{> welcome-menu-dashboard active="home"}}
 
 {{#if admin}}
   <form action="/admin/dashboard" method="GET" enctype="multipart/form-data">
@@ -8,19 +8,34 @@
   </form>
 {{/if}}
 
+
+
 <section class="section">
-  {{> account-statistics }}
+  {{> introduction }}
 </section>
-<section class="section">
-  {{> dashboard-introduction }}
-</section>
+
+
+
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
 
 <section class="section">
   {{> map }}
 </section>
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+<section>
+  {{> list-pois}}
 
+</section>
+
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
 <section class="section">
   {{> add-poi}}
-  {{> list-pois}}
 </section>
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+<section class="section">
+  {{> about-city}}
+</section>
+
+
 

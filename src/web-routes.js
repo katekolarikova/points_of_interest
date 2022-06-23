@@ -25,4 +25,6 @@ export const webRoutes = [
   { method: "GET", path: "/admin/dashboard/deleteUser/{id}", config: adminController.deleteUser },
   { method: "GET", path: "/admin/updateuser/{id}", config: adminController.modifyUserView },
   { method: "POST", path: "/admin/updateuser/submit/{id}", config: adminController.modifyUserSubmit },
+
+  { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } },
 ];
