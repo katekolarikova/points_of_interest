@@ -1,6 +1,7 @@
 import { db } from "../models/db.js";
 import { imageStore } from "../models/image-store.js";
 import { PoiSpec, DescriptionValidation, CoordinationValidation } from "../models/joi-schemas.js";
+import { isAdmin } from "./admin-dashboard-controller.js";
 
 export const poiController = {
   index: {
@@ -103,6 +104,10 @@ export const poiController = {
     handler: async function (request, h) {
       const poi = await db.poiStore.getPoiById(request.params.id);
       await db.poiStore.deletePoi(poi._id);
+      const loggedInUser = request.auth.credentials;
+      if (isAdmin(loggedInUser)) {
+        return h.redirect("/admin/dashboard");
+      }
       return h.redirect("/dashboard");
     },
   },

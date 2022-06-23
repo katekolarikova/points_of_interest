@@ -1,4 +1,5 @@
 import { User } from "./user.js";
+import { Poi } from "./poi.js";
 
 export const userMongoStore = {
   async getAllUsers() {
@@ -36,5 +37,13 @@ export const userMongoStore = {
 
   async deleteAll() {
     await User.deleteMany({});
+  },
+
+  async updateUser(id, user) {
+    try {
+      await User.updateOne({ _id: id }, user, { upsert: true });
+    } catch (error) {
+      console.log("something went wrong, user wasnt updated");
+    }
   },
 };
