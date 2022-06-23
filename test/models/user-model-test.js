@@ -8,6 +8,10 @@ suite("User model tests", () => {
   setup(async () => {
     db.init("testMongo");
     await db.userStore.deleteAll();
+    for (let i = 0; i < testUsers.length; i += 1) {
+      // eslint-disable-next-line no-await-in-loop
+      await db.userStore.addUser(testUsers[i]);
+    }
   });
 
   // creating the user
@@ -46,10 +50,6 @@ suite("User model tests", () => {
   });
   // deleteAll
   test("delete all users", async () => {
-    for (let i = 0; i < testUsers.length; i += 1) {
-      // eslint-disable-next-line no-await-in-loop
-      await db.userStore.addUser(testUsers[i]);
-    }
     let returnedUsers = await db.userStore.getAllUsers();
     assert.equal(returnedUsers.length, 3);
     await db.userStore.deleteAll();
@@ -60,28 +60,23 @@ suite("User model tests", () => {
   test("delete user by id one", async () => {
     const testUser = await db.userStore.addUser(testUserJohn);
     let returnedUser = await db.userStore.getAllUsers();
-    assert.equal(returnedUser.length, 1);
+    assert.equal(returnedUser.length, 4);
     await db.userStore.deleteUserById(testUser._id);
     returnedUser = await db.userStore.getAllUsers();
-    assert.equal(returnedUser.length, 0);
+    assert.equal(returnedUser.length, 3);
     const deleteUser = await db.userStore.getUserById(testUser._id);
     assert.isNull(deleteUser);
   });
 
   // delete user, unsuccessful
   test("delete user by id, unsuccessfull", async () => {
-    const testUser = await db.userStore.addUser(testUserJohn);
     await db.userStore.deleteUserById("wrong");
     const returnedUser = await db.userStore.getAllUsers();
-    assert.equal(returnedUser.length, 1);
+    assert.equal(returnedUser.length, 3);
   });
 
   // delete userById - from many
   test("delete one user by id many", async () => {
-    for (let i = 0; i < testUsers.length; i += 1) {
-      // eslint-disable-next-line no-await-in-loop
-      await db.userStore.addUser(testUsers[i]);
-    }
     let returnedUsers = await db.userStore.getAllUsers();
     assert.equal(returnedUsers.length, 3);
     await db.userStore.deleteUserById(returnedUsers[0]._id);

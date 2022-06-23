@@ -8,11 +8,16 @@ const users = new Array(testUsers.length);
 
 suite("User API tests", () => {
   setup(async () => {
+    poiService.clearAuth();
+    let user = await poiService.addUser(testUserJohn);
+    await poiService.authenticate(testUserJohn);
     await poiService.deleteAllUsers();
     for (let i = 0; i < testUsers.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
       users[0] = await poiService.addUser(testUsers[i]);
     }
+    user = await poiService.addUser(testUserJohn);
+    await poiService.authenticate(testUserJohn);
   });
   teardown(async () => {});
 
@@ -24,10 +29,12 @@ suite("User API tests", () => {
 
   test("delete all users", async () => {
     let returnedUsers = await poiService.getAllUsers();
-    assert.equal(returnedUsers.length, 3);
+    assert.equal(returnedUsers.length, 4);
     await poiService.deleteAllUsers();
+    await poiService.addUser(testUserJohn);
+    await poiService.authenticate(testUserJohn);
     returnedUsers = await poiService.getAllUsers();
-    assert.equal(returnedUsers.length, 0);
+    assert.equal(returnedUsers.length, 1);
   });
 
   test("get a user - success", async () => {
@@ -37,7 +44,7 @@ suite("User API tests", () => {
   // get all
   test("get all users", async () => {
     const returnedUsers = await poiService.getAllUsers();
-    assert.equal(returnedUsers.length, 3);
+    assert.equal(returnedUsers.length, 4);
   });
 
   // delete one
@@ -46,7 +53,7 @@ suite("User API tests", () => {
     const returnedUser = await poiService.getUser(users[0]._id);
     await poiService.deleteOneUser(returnedUser._id);
     allUser = await poiService.getAllUsers();
-    assert.equal(allUser.length, testUsers.length - 1);
+    assert.equal(allUser.length, testUsers.length - 1 + 1);
   });
 
   test("delete user, unsuccessful", async () => {
@@ -65,6 +72,7 @@ suite("User API tests", () => {
       assert.fail("Should not return a response");
     } catch (error) {
       assert(error.response.data.message === "No User with this id", "Incorrect Response Message");
+      assert.equal(error.response.data.statusCode, 503);
     }
   });
 });

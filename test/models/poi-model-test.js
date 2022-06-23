@@ -8,15 +8,14 @@ suite("Poi Unit Test", async () => {
   setup(async () => {
     db.init("testMongo");
     await db.poiStore.deleteAllPoi();
-  });
-
-  // get all poi
-  test("get all pois ", async () => {
-    // eslint-disable-next-line no-plusplus
     for (let i = 0; i < testPois.length; ++i) {
       // eslint-disable-next-line no-await-in-loop
       await db.poiStore.addPoi(testPois[i]);
     }
+  });
+
+  // get all poi
+  test("get all pois ", async () => {
     const returnedPois = await db.poiStore.getAllPois();
     assert.equal(returnedPois.length, 3);
   });
@@ -52,20 +51,16 @@ suite("Poi Unit Test", async () => {
   test("delete poi, successful", async () => {
     const testPoi = await db.poiStore.addPoi(testPoiCinema);
     let returnedPois = await db.poiStore.getAllPois();
-    assert.equal(returnedPois.length, 1);
+    assert.equal(returnedPois.length, 4);
     await db.poiStore.deletePoi(testPoi._id);
     returnedPois = await db.poiStore.getAllPois();
-    assert.equal(returnedPois.length, 0);
+    assert.equal(returnedPois.length, 3);
     const deletedPoi = await db.poiStore.getPoiById(testPoi._id);
     assert.isNull(deletedPoi);
   });
 
   // deletePoi wrong parameters
   test("delete poi, unsuccessful", async () => {
-    for (let i = 0; i < testPois.length; i += 1) {
-      // eslint-disable-next-line no-await-in-loop
-      await db.poiStore.addPoi(testPois[i]);
-    }
     await db.poiStore.deletePoi("xx");
     const returnedPois = await db.poiStore.getAllPois();
     assert.equal(testPois.length, returnedPois.length);
@@ -73,10 +68,6 @@ suite("Poi Unit Test", async () => {
 
   // deleteAll
   test("delete all pois", async () => {
-    for (let i = 0; i < testPois.length; i += 1) {
-      // eslint-disable-next-line no-await-in-loop
-      await db.poiStore.addPoi(testPois[i]);
-    }
     let returnedPois = await db.poiStore.getAllPois();
     assert.equal(returnedPois.length, 3);
     await db.poiStore.deleteAllPoi();

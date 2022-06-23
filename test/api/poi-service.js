@@ -2,6 +2,8 @@ import axios from "axios";
 
 import { serviceUrl } from "../fixtures.js";
 
+// axios - knihovna pro realizaci http requestu
+
 export const poiService = {
   poiUrl: serviceUrl,
 
@@ -57,5 +59,15 @@ export const poiService = {
   async deleteOnePoi(id) {
     const res = await axios.delete(`${this.poiUrl}/api/pois/${id}`);
     return res.data;
+  },
+
+  async authenticate(user) {
+    const response = await axios.post(`${this.poiUrl}/api/users/authenticate`, user); // access the endpoint
+    axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.token; // set header of the token
+    return response.data;
+  },
+
+  async clearAuth() {
+    axios.defaults.headers.common["Authorization"] = "";
   },
 };

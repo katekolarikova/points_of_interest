@@ -1,15 +1,22 @@
 {{> welcome-menu active="home"}}
 
+{{#if admin}}
+  <form action="/admin/dashboard" method="GET" enctype="multipart/form-data">
+    <div class="field" style="text-align: center;">
+      <button class="button is-link">Admin dashboard</button>
+    </div>
+  </form>
+{{/if}}
+
 <section class="section">
   {{> dashboard-introduction }}
 </section>
-
 <section class="section">
   {{> map }}
 </section>
 
 <section class="section">
-  {{> list-pois}}
   {{> add-poi}}
+  {{> list-pois}}
 </section>
 
