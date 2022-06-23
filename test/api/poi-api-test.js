@@ -1,7 +1,7 @@
 import { assert } from "chai";
 import { poiService } from "./poi-service.js";
 import { assertSubset } from "../test-utils.js";
-import { testPoiCinema, testPois, testUsers, testUserJohn } from "../fixtures.js";
+import { testPoiCinema, testPois, testUsers, testUserJohn, johnCredentials } from "../fixtures.js";
 
 const pois = new Array(testPois.length);
 
@@ -9,7 +9,7 @@ suite("Poi API tests", () => {
   setup(async () => {
     poiService.clearAuth();
     let user = await poiService.addUser(testUserJohn);
-    await poiService.authenticate(testUserJohn);
+    await poiService.authenticate(johnCredentials);
     await poiService.deleteAllPois();
     for (let i = 0; i < testPois.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
@@ -17,7 +17,7 @@ suite("Poi API tests", () => {
     }
     await poiService.deleteAllUsers();
     user = await poiService.addUser(testUserJohn);
-    await poiService.authenticate(testUserJohn);
+    await poiService.authenticate(johnCredentials);
     testPoiCinema.userid = user._id;
   });
   teardown(async () => {});

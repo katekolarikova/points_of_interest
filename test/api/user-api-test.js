@@ -1,7 +1,7 @@
 import { assert } from "chai";
 import { poiService } from "./poi-service.js";
 import { assertSubset } from "../test-utils.js";
-import { testUserJohn, testUsers } from "../fixtures.js";
+import { testUserJohn, testUsers, johnCredentials } from "../fixtures.js";
 import { userApi } from "../../src/api/users-api.js";
 
 const users = new Array(testUsers.length);
@@ -10,14 +10,14 @@ suite("User API tests", () => {
   setup(async () => {
     poiService.clearAuth();
     let user = await poiService.addUser(testUserJohn);
-    await poiService.authenticate(testUserJohn);
+    await poiService.authenticate(johnCredentials);
     await poiService.deleteAllUsers();
     for (let i = 0; i < testUsers.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
       users[0] = await poiService.addUser(testUsers[i]);
     }
     user = await poiService.addUser(testUserJohn);
-    await poiService.authenticate(testUserJohn);
+    await poiService.authenticate(johnCredentials);
   });
   teardown(async () => {});
 
@@ -32,7 +32,7 @@ suite("User API tests", () => {
     assert.equal(returnedUsers.length, 4);
     await poiService.deleteAllUsers();
     await poiService.addUser(testUserJohn);
-    await poiService.authenticate(testUserJohn);
+    await poiService.authenticate(johnCredentials);
     returnedUsers = await poiService.getAllUsers();
     assert.equal(returnedUsers.length, 1);
   });

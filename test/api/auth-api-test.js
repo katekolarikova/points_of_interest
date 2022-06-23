@@ -7,13 +7,13 @@ suite("Authentication API tests", async () => {
   setup(async () => {
     poiService.clearAuth();
     await poiService.addUser(testUserJohn);
-    await poiService.authenticate(testUserJohn);
+    await poiService.authenticate(johnCredentials);
     await poiService.deleteAllUsers();
   });
 
   test("authenticate", async () => {
     const user = await poiService.addUser(testUserJohn);
-    const response = await poiService.authenticate(testUserJohn);
+    const response = await poiService.authenticate(johnCredentials);
     assert(response.success);
     assert.isDefined(response.token);
   });
