@@ -1,8 +1,20 @@
 import { db } from "../models/db.js";
+import fetch from "node-fetch";
+
+async function getWeather() {
+  const city = "Ostrava";
+  const response = await fetch("https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=64e705f29005260c94ec18065bfc50f6&units=metric");
+  const data = await response.text();
+  return data;
+}
 
 export const dashboardController = {
   index: {
     handler: async function (request, h) {
+      const weatherData = await getWeather();
+      const WeatherJsonData = JSON.parse(weatherData);
+      let description = WeatherJsonData["weather"][0]["description"];
+      let temperature = WeatherJsonData["main"]["temp"];
       const loggedInUser = request.auth.credentials;
       const userspoisDb = await db.poiStore.getUserPois(loggedInUser._id);
       const poisDb = await db.poiStore.getAllPois();
@@ -11,6 +23,11 @@ export const dashboardController = {
         user_poi: userspoisDb,
         all_poi: poisDb,
         admin: loggedInUser.admin,
+        weather_description: description,
+        temperature: temperature,
+        num_of_pois_user: userspoisDb.length,
+        num_of_poi_total: poisDb.length,
+        nickname: loggedInUser.nickname,
       };
       return h.view("dashboard", viewData);
     },

@@ -50,12 +50,8 @@ export const poiApi = {
     },
     handler: async function (request, h) {
       try {
-        console.log("toto je poi");
-        console.log(request.payload);
-        console.log(typeof request.payload.latitude);
         const poi = await db.poiStore.addPoi(request.payload);
-        console.log("pridano");
-        console.log(typeof poi.latitude);
+
         if (poi) {
           return h.response(poi).code(201);
         }
