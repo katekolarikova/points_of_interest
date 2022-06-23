@@ -53,7 +53,7 @@ export const accountController = {
     handler: async function (request, h) {
       console.log(request);
       const user = request.payload;
-      user.role = "user";
+      user.admin = false;
       await db.userStore.addUser(user);
       return h.redirect("/");
     },

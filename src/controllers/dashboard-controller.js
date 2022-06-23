@@ -10,6 +10,7 @@ export const dashboardController = {
         title: "Poi Dashboard",
         user_poi: userspoisDb,
         all_poi: poisDb,
+        admin: loggedInUser.admin,
       };
       return h.view("dashboard", viewData);
     },

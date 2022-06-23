@@ -1,14 +1,14 @@
 <h1 class="title" style="color:darkgreen;font-size:30px;text-align:center;">Your Pois</h1>
 
-{{#each user_poi}}
+{{#each users}}
   <div class="box box-link-hover-shadow">
     <h2 class="title">
       {{name}}
     </h2>
-    <a href="/dashboard/deletePoi/{{_id}}" class="button">
+    <a href="/admin/dashboard/deleteUser/{{_id}}" class="button">
       <i class="fas fa-trash"></i>
     </a>
-    <a href="/modifypoi/{{_id}}" class="button">
+    <a href="/admin/updateuser/{{_id}}" class="button">
       <span class="icon is-small">
        <i class="fas fa-pen"></i>
       </span>
