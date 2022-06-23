@@ -5,7 +5,7 @@ export const IdSpec = Joi.alternatives().try(Joi.string(), Joi.object()).descrip
 
 export const UserLogin = Joi.object()
   .keys({
-    email: Joi.string().email().example("homer@simpson.com").required(),
+    email: Joi.string().email().example("test@test.com").required(),
     password: Joi.string().example("secret").required(),
   })
   .label("UserLogin");
@@ -58,3 +58,10 @@ export const CoordinationValidation = Joi.object()
     poiId: Joi.any(),
   })
   .label("UpdatePoiLocation");
+
+export const JwtAuth = Joi.object()
+  .keys({
+    success: Joi.boolean().example("true").required(),
+    token: Joi.string().example("eyJhbGciOiJND.g5YmJisIjoiaGYwNTNjAOhE.gCWGmY5-YigQw0DCBo").required(),
+  })
+  .label("JwtAuth");
