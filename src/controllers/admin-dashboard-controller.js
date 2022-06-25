@@ -1,4 +1,6 @@
 import { db } from "../models/db.js";
+// eslint-disable-next-line import/named
+import { UserLogin, UserSpecUpdate } from "../models/joi-schemas.js";
 
 export function isAdmin(loggedInUser) {
   if (loggedInUser.admin) {
@@ -67,6 +69,13 @@ export const adminController = {
   },
 
   modifyUserSubmit: {
+    validate: {
+      payload: UserSpecUpdate,
+      options: { abortEarly: false },
+      failAction: function (request, h, error) {
+        return h.view("update-user", { title: "Log in error", errors: error.details }).takeover().code(400);
+      },
+    },
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
       if (!isAdmin(loggedInUser)) {
@@ -79,7 +88,7 @@ export const adminController = {
         password: request.payload.password,
         admin: request.payload.admin,
       };
-      await db.userStore.updateUser(request.payload.poiId, newUser);
+      await db.userStore.updateUser(request.payload.userId, newUser);
       return h.redirect("/admin/dashboard");
     },
   },
