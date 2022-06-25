@@ -15,6 +15,11 @@ export const UserSpec = UserLogin.keys({
   nickname: Joi.string().example("Kathy01").required(),
 }).label("UserSpecification");
 
+export const UserSpecUpdate = UserSpec.keys({
+  userId: Joi.any(),
+  admin: Joi.boolean(),
+});
+
 export const UserDbDetail = UserSpec.keys({
   _id: IdSpec,
   __v: Joi.number(),

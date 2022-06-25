@@ -1,6 +1,6 @@
 import { assert } from "chai";
 import { assertSubset } from "../test-utils.js";
-import { testUserJohn, testUsers } from "../fixtures.js";
+import { testPoiCinema, testUserJohn, testUsers } from "../fixtures.js";
 
 import { db } from "../../src/models/db.js";
 
@@ -82,5 +82,14 @@ suite("User model tests", () => {
     await db.userStore.deleteUserById(returnedUsers[0]._id);
     returnedUsers = await db.userStore.getAllUsers();
     assert.equal(returnedUsers.length, 2);
+  });
+
+  // updatePoi
+  test("update user", async () => {
+    const testUser = await db.userStore.addUser(testUserJohn);
+    await db.userStore.updateUser(testUser._id, { name: "changed" });
+    testUser.name = "changed";
+    const returnedUser = await db.userStore.getUserById(testUser._id);
+    assertSubset(testUser, returnedUser);
   });
 });
