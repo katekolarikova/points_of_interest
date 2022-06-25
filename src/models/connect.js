@@ -13,7 +13,7 @@ async function seed() {
 export function connectMongo() {
   dotenv.config();
 
-  Mongoose.connect(process.env.db_test); // for testing the API change to db_test/db
+  Mongoose.connect(process.env.db); // for testing the API change to db_test/db
   const db = Mongoose.connection;
 
   db.on("error", (err) => {
