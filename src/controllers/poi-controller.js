@@ -47,7 +47,12 @@ export const poiController = {
         longitude: request.payload.longitude,
         img: url,
       };
-      await db.poiStore.addPoi(newPoi);
+
+      try {
+        await db.poiStore.addPoi(newPoi);
+      } catch (err) {
+        console.log(err);
+      }
       return h.redirect("/dashboard");
     },
     payload: {

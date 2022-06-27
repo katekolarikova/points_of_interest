@@ -25,13 +25,20 @@ suite("Poi Unit Test", async () => {
     assertSubset(testPoi, testPoiCinema);
   });
 
-  // updatePoi
-  test("update poi", async () => {
+  // updatePoi, succesful
+  test("update poi, successful", async () => {
     const testPoi = await db.poiStore.addPoi(testPoiCinema);
     await db.poiStore.updatePoi(testPoi._id, { name: "changed" });
     testPoi.name = "changed";
     const returnedPoi = await db.poiStore.getPoiById(testPoi._id);
     assertSubset(testPoi, returnedPoi);
+  });
+
+  // update poi, wrong
+  test("update poi, unsuccessful", async () => {
+    // eslint-disable-next-line camelcase
+    const returnedPoi = await db.poiStore.updatePoi("", { name: "changed" });
+    assert.isNull(returnedPoi);
   });
 
   // get poi by id, successful
