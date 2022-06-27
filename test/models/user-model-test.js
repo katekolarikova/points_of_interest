@@ -92,4 +92,11 @@ suite("User model tests", () => {
     const returnedUser = await db.userStore.getUserById(testUser._id);
     assertSubset(testUser, returnedUser);
   });
+
+  // update poi, wrong
+  test("update user, unsuccessful", async () => {
+    // eslint-disable-next-line camelcase
+    const returnedUser = await db.userStore.updateUser("", { name: "changed" });
+    assert.isNull(returnedUser);
+  });
 });

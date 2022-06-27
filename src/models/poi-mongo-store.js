@@ -37,11 +37,11 @@ export const poiMongoStore = {
   },
 
   async updatePoi(id, poi) {
-    try {
+    if (id) {
       await Poi.updateOne({ _id: id }, poi, { upsert: true });
-    } catch (error) {
-      console.log("something went wrong, poi wasnt updated");
     }
+    console.log("something went wrong, poi wasnt updated");
+    return null;
   },
 
   async deleteAllPoi(id) {

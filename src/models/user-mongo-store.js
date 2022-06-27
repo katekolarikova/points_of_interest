@@ -40,10 +40,11 @@ export const userMongoStore = {
   },
 
   async updateUser(id, user) {
-    try {
+    if (id) {
       await User.updateOne({ _id: id }, user, { upsert: true });
-    } catch (error) {
-      console.log("something went wrong, user wasnt updated");
     }
+    console.log("something went wrong, poi wasnt updated");
+
+    return null;
   },
 };
