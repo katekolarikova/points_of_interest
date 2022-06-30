@@ -1,22 +1,36 @@
-Name: Katerina Kolarikova <br>
-Date: 27. 7. 2022
-
 # PlaceMark - Point of Interest of Ostrava
 
-This aplication was developed for a course Advanced Full Stack Development at OTH.
+This aplication was developed for a course Advanced Full Stack Development at OTH.<br><br>
+Author: Katerina Kolarikova <br>
+Date: 27. 7. 2022
 
 ## Goal
 
-Goal of this application is aloved users to discovered the interesting places of Ostrava. After the singup and login, user is able to display map with intersting
-places of Ostrava and display detail description of these places. Also user is allowed to add these places, and delete or modify  pois (=points of 
-interesrt) created by himself. At the bottom of this page is brief history of the city together with current weather forecast.
+Goal of this application is allowed users to discovere an interesting places of Ostrava. After the singup and login, user is able to display map with intersting
+places of Ostrava and display detail descriptions of these places. Also user is allowed to add these places, and delete or modify  pois (=points of 
+interesrt) created by himself. At the bottom of the page there is brief history of the city together with current weather forecast.
 <br><br>
-Application also contains admin account. Admin can delete or modify every poi as well as every user. Also e can display statistics about the app or create 
+Application also contains admin account. Admin can delete or modify every poi as well as every user. Also he can display statistics about the app or create 
 new admins.
 
+*User functions:*
+- Display map with pois
+- Add new poi
+- Modify/delete user's pois
+- LogIn/SignUp
+- Display statistics
+- Display weather
+- Filter pois on map
+
+*Admin functions:*
+- Modify/delete users
+- Modify/delete pois
+- Display statistics
+- Create new admins
+
 ## Used technologies
-There is a list of technologies used during the developing of the project. Please remember that all of these technologies are reuired for running the 
-application. Please install every of them in case that you want to run application localy
+There is a list of technologies used during the development of the project. Please remember that all of these technologies are required for running the 
+application. Please install all of them if you want to run application localy
 
 - node.js
 - eslint - npm install -D eslint, npm install -D eslint-plugin-import
@@ -47,14 +61,11 @@ Please, for running the aplication localy install the packages mentioned above, 
 - npm run dev
 
 ## Deployment
-This application was deployed using heroku and it is running on http://safe-reef-89433.herokuapp.com/. Database is deployed on Mongo cloud service atlas,
+This application was deployed using heroku and it is running on http://safe-reef-89433.herokuapp.com/. Database is deployed on Mongo cloud service Atlas,
 the images are stored using cloudinary service.
 
-## Join Us!
-This application alredy offered a huge mount of functions, but there is still a lot of to improve. If ypu want to join us and help us, do not hesitate
-to contct us. You can for example create new tests, improve API or change the application design.
-
-
+## API Documentation
+Docuemntation for the API was created using the Open API standart and Swagger. Link to the documnetation is here: https://safe-reef-89433.herokuapp.com/documentation.
 
 
 
